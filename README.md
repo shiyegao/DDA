@@ -16,6 +16,7 @@ DDA
                 |---- 5
                     |---- n01440764
                         |---- ILSVRC2012_val_00000293.JPEG
+        |---- generated
     |---- ckpt
         |---- *.pth
     |---- image_adapt
