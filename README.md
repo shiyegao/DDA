@@ -1,4 +1,4 @@
-# DDA
+# Back to Source: Diffusion-Driven Test-Time Adaptation
 Official repository of "Back to Source: Diffusion-Driven Test-Time Adaptation".
 
 ## Introduction
