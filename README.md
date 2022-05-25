@@ -2,7 +2,7 @@
 Official repository of "Back to Source: Diffusion-Driven Test-Time Adaptation".
 
 ## Introduction
-This repo is based on [guided-diffusion](https://github.com/openai/guided-diffusion) and [mim](https://github.com/open-mmlab/mim). We mainly provide the following functionality:
+This repo is based on [ilvr](https://github.com/jychoi118/ilvr_adm) and [mim](https://github.com/open-mmlab/mim). We mainly provide the following functionality:
 + Adapt an image using a diffusion model.
 + Test using self-ensemble given image pairs.
 
@@ -37,11 +37,15 @@ mim install mmcls
 
 ## Pre-trained Models
 You can find how to download checkpoint [here](./ckpt/README.md). 
+the pre-trained diffusion model we used is from [guided-diffusion](https://github.com/openai/guided-diffusion)
 
 ## Usage
 
 ### Diffusion Generation
 
+```bash
+bash image_adapt.sh
+```
 
 ### Ensemble Test
 

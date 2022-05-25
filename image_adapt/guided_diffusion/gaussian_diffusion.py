@@ -450,8 +450,8 @@ class GaussianDiffusion:
         device=None,
         progress=False,
         resizers=None,
-        range_t=0,
-        start_step=None,
+        M=0,
+        N=None,
     ):
         """
         Generate samples from the model.
@@ -484,8 +484,8 @@ class GaussianDiffusion:
             device=device,
             progress=progress,
             resizers=resizers,
-            range_t=range_t,
-            start_step=start_step,
+            M=M,
+            N=N,
         ):
             final = sample
 
@@ -505,8 +505,8 @@ class GaussianDiffusion:
         device=None,
         progress=False,
         resizers=None,
-        range_t=0,
-        start_step=None,
+        M=0,
+        N=None,
     ):
         """
         Generate samples from the model and yield intermediate samples from
@@ -524,10 +524,10 @@ class GaussianDiffusion:
 
         if noise is not None:
             img = noise
-            if start_step is not None:
-                t = th.tensor([start_step] * shape[0], device=device)
+            if N is not None:
+                t = th.tensor([N] * shape[0], device=device)
                 img = self.q_sample(noise, t, th.randn(*shape, device=device))
-                indices = list(range(start_step))[::-1]
+                indices = list(range(N))[::-1]
         else:
             img = th.randn(*shape, device=device)
         
@@ -556,7 +556,7 @@ class GaussianDiffusion:
 
                 #### ILVR ####
                 if resizers is not None:
-                    if i > range_t:
+                    if i > M:
                         out["sample"] = out["sample"] - up(down(out["sample"])) + up(
                             down(self.q_sample(model_kwargs["ref_img"], t, th.randn(*shape, device=device))))
 
