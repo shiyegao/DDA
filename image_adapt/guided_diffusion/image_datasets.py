@@ -1,4 +1,5 @@
 import math
+import os
 import random
 
 from PIL import Image
@@ -6,13 +7,15 @@ import blobfile as bf
 from mpi4py import MPI
 import numpy as np
 from torch.utils.data import DataLoader, Dataset
-
+from model_adapt.imagenet import find_folders, get_prefix_samples
 
 def load_data(
     *,
     data_dir,
     batch_size,
     image_size,
+    corruption="shot_noise",
+    severity=5,
     class_cond=False,
     deterministic=False,
     random_crop=False,
@@ -38,16 +41,29 @@ def load_data(
     """
     if not data_dir:
         raise ValueError("unspecified data directory")
-    all_files = _list_image_files_recursively(data_dir)
-    classes = None
-    if class_cond:
-        # Assume classes are the first part of the filename,
-        # before an underscore.
-        class_names = [bf.basename(path).split("_")[0] for path in all_files]
-        sorted_classes = {x: i for i, x in enumerate(sorted(set(class_names)))}
-        classes = [sorted_classes[x] for x in class_names]
+
+    data_prefix = os.path.join(data_dir, corruption, str(severity))
+    folder_to_idx = find_folders(data_prefix)
+    sample = get_prefix_samples(
+        data_prefix,
+        folder_to_idx,
+        extensions=["jpeg"],
+        shuffle=not deterministic
+    )
+    
+
+    all_files = []
+    classes = []
+    for img_prefix, filename, gt_label in sample:
+        all_files.append(filename)
+        classes.append(gt_label)
+    
+    if not class_cond:
+        classes = None
+
     dataset = ImageDataset(
         image_size,
+        data_prefix,
         all_files,
         classes=classes,
         shard=MPI.COMM_WORLD.Get_rank(),
@@ -83,6 +99,7 @@ class ImageDataset(Dataset):
     def __init__(
         self,
         resolution,
+        data_prefix,
         image_paths,
         classes=None,
         shard=0,
@@ -92,6 +109,7 @@ class ImageDataset(Dataset):
     ):
         super().__init__()
         self.resolution = resolution
+        self.data_prefix = data_prefix
         self.local_images = image_paths[shard:][::num_shards]
         self.local_classes = None if classes is None else classes[shard:][::num_shards]
         self.random_crop = random_crop
@@ -101,7 +119,8 @@ class ImageDataset(Dataset):
         return len(self.local_images)
 
     def __getitem__(self, idx):
-        path = self.local_images[idx]
+        path = os.path.join(self.data_prefix, self.local_images[idx])
+        
         with bf.BlobFile(path, "rb") as f:
             pil_image = Image.open(f)
             pil_image.load()
@@ -120,7 +139,7 @@ class ImageDataset(Dataset):
         out_dict = {}
         if self.local_classes is not None:
             out_dict["y"] = np.array(self.local_classes[idx], dtype=np.int64)
-        return np.transpose(arr, [2, 0, 1]), out_dict
+        return np.transpose(arr, [2, 0, 1]), out_dict, self.local_images[idx]
 
 
 def center_crop_arr(pil_image, image_size):
