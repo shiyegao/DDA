@@ -10,7 +10,17 @@ This repo is based on [guided-diffusion](https://github.com/openai/guided-diffus
 
 ```
 DDA
+    |---- dataset
+        |---- imagenetc
+            |---- gaussian_noise
+                |---- 5
+                    |---- n01440764
+                        |---- ILSVRC2012_val_00000293.JPEG
+    |---- ckpt
+        |---- *.pth
     |---- image_adapt
+        |---- guided_diffusion
+        |---- scripts
     |---- model_adapt
         |---- configs
     |---- README.md
@@ -27,8 +37,8 @@ mim install mmcls
 
 ### Usage
 
-The official usage is 
+
 ```bash
 export PYTHONPATH=$PYTHONPATH:$(pwd)
-CUDA_VISIBLE_DEVICES=0 python tools/test_ensemble.py model_adapt/configs/rednet26_select_b64_imagenet.py --metrics accuracy --select l2norm
+python model_adapt/test_ensemble.py model_adapt/configs/ensemble/rednet26_ensemble_b64_imagenet.py ckpt/rednet26-4948f75f.pth --metrics accuracy --select sum
 ```

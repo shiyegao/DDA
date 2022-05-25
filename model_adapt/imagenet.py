@@ -21,7 +21,7 @@ def has_file_allowed_extension(filename, extensions):
     return any(filename_lower.endswith(ext) for ext in extensions)
 
 
-def .(root):
+def find_folders(root):
     """Find classes by folders under a root.
 
     Args:
@@ -36,8 +36,6 @@ def .(root):
     folders.sort()
     folder_to_idx = {folders[i]: i for i in range(len(folders))}
     return folder_to_idx
-
-
 
 
 def get_prefix_samples(root, folder_to_idx, extensions, shuffle=False):
@@ -181,45 +179,7 @@ class ImageNetC(ImageNet):
 
 
 @DATASETS.register_module()
-class ImageNetCBAR(ImageNetC):
-    """`CIFAR10-C-BAR <https://github.com/facebookresearch/augmentation-corruption>`_ Dataset.
-    """
-    ATTRIBUTE = {
-        'corruption': [
-            "blue_noise_sample", "brownish_noise", 
-            "caustic_refraction", "checkerboard_cutout", 
-            "cocentric_sine_waves", "inverse_sparkles", 
-            "perlin_noise", "plasma_noise", 
-            "single_frequency_greyscale", "sparkles"
-        ],
-        'dataset': 'IMAGENETCBAR'
-    }
-
-
-@DATASETS.register_module()
-class ImageNetC25(ImageNetC):
-    """
-        `CIFAR10-C <https://github.com/hendrycks/robustness>`_ Dataset.
-        `CIFAR10-C-BAR <https://github.com/facebookresearch/augmentation-corruption>`_ Dataset.
-    """
-    ATTRIBUTE = {
-        'corruption': [
-            'gaussian_noise', 'shot_noise', 'impulse_noise',
-            'defocus_blur', 'glass_blur', 'motion_blur',
-            'zoom_blur', 'snow', 'frost', 'fog', 'brightness',
-            'contrast', 'elastic_transform', 'pixelate', 'jpeg_compression',
-            "blue_noise_sample", "brownish_noise", 
-            "caustic_refraction", "checkerboard_cutout", 
-            "cocentric_sine_waves", "inverse_sparkles", 
-            "perlin_noise", "plasma_noise", 
-            "single_frequency_greyscale", "sparkles"
-        ],
-        'dataset': 'IMAGENETC25'
-    }
-
-
-@DATASETS.register_module()
-class ImageNetC25_2(ImageNetC25):
+class ImageNetC_2(ImageNetC):
 
     def __init__(self, data_prefix2, **kwargs):
         super().__init__(**kwargs)
@@ -237,55 +197,3 @@ class ImageNetC25_2(ImageNetC25):
         x1 = self.prepare_data(idx)
         x2 = self.prepare_data2(idx)
         return x1, x2
-
-
-@DATASETS.register_module()
-class ImageNetCDIFFUSION(ImageNetC):
-    def load_annotations(self):
-        load_list = []
-        for c in self.corruption:
-            for s in self.severity:
-                load_list.append((c, s))
-        load_list = np.array(load_list)
-
-        if self.shuffle_shallow:
-            order = np.random.permutation(len(self.corruption) * len(self.severity))
-            load_list = load_list[order]
-            print('Shuffling:', load_list)
-
-        samples = []
-        for l in load_list:
-            c, s = l[0], int(l[1])
-            # data_prefix = os.path.join(self.data_prefix, c, str(s), 'N16_t30')
-            # data_prefix = os.path.join(self.data_prefix, c)
-            data_prefix = self.data_prefix
-            if self.ann_file is None:
-                for d in os.listdir(data_prefix):
-                    if re.match(".*png", d):
-                        samples.append([data_prefix, d, d[6:-4]])
-                if len(samples) == 0:
-                    raise (RuntimeError('Found 0 files in subfolders of: '
-                                        f'{data_prefix}. '
-                                        'Supported extensions are: '
-                                        f'{",".join(self.IMG_EXTENSIONS)}'))
-            elif isinstance(self.ann_file, str):
-                with open(self.ann_file) as f:
-                    samples += [x.strip().split(' ') for x in f.readlines()]
-            else:
-                raise TypeError('ann_file must be a str or None')
-        if self.shuffle_deep!=0:
-            step = int(self.shuffle_deep)
-            print('Shuffling: {} to {}, step {}'.format(0, len(samples), step))
-            order = np.random.permutation([i for i in range(len(samples) // step)])
-            order = np.array([i * step + j for i in list(order) for j in range(step) ])
-            samples = np.array(samples)[order]
-        self.samples = samples
-        print('IMAGENETCDIFFUSION', self.corruption, self.severity, len(self.samples))
-        
-        data_infos = []
-        for img_prefix, filename, gt_label in self.samples:
-            info = {'img_prefix': img_prefix}
-            info['img_info'] = {'filename': filename}
-            info['gt_label'] = np.array(gt_label, dtype=np.int64)
-            data_infos.append(info)
-        return data_infos

@@ -2,10 +2,8 @@ import torch.nn as nn
 import torch.utils.checkpoint as cp
 
 from .involution_cupy import involution
-from inherit.conv_module import convModule
-from inherit.cnn import build_conv_layer
 
-from mmcv.cnn import (build_norm_layer, build_activation_layer, constant_init, kaiming_init)
+from mmcv.cnn import (build_conv_layer, build_norm_layer, build_activation_layer, constant_init, kaiming_init, ConvModule)
 from mmcv.utils.parrots_wrapper import _BatchNorm
 from mmcv.runner import BaseModule
 from mmcls.models import BACKBONES
@@ -554,7 +552,7 @@ class RedNet(BaseModule):
 
     def _make_stem_layer(self, in_channels, stem_channels):
         self.stem = nn.Sequential(
-            convModule(
+            ConvModule(
                 in_channels,
                 stem_channels // 2,
                 kernel_size=3,
@@ -570,7 +568,7 @@ class RedNet(BaseModule):
                 self.act_cfg_inv),
             build_norm_layer(self.norm_cfg, stem_channels // 2)[1],
             build_activation_layer(self.act_cfg),
-            convModule(
+            ConvModule(
                 stem_channels // 2,
                 stem_channels,
                 kernel_size=3,
@@ -719,7 +717,7 @@ class RedNet_CIFAR(RedNet):
 
     def _make_stem_layer(self, in_channels, stem_channels):
         self.stem = nn.Sequential(
-            convModule(
+            ConvModule(
                 in_channels,
                 stem_channels,
                 kernel_size=3,

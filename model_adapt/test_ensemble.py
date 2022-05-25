@@ -17,9 +17,8 @@ from mmcls.datasets import build_dataloader, build_dataset
 from mmcls.models import build_classifier
 from mmcls.utils import get_root_logger, setup_multi_processes
 
-from new.epoch_based_runner import select_logits_to_idx, tackle_img_from_idx
-from new.evaluation import (single_gpu_test_ensemble, multi_gpu_test_ensemble,
-                            single_gpu_test_BN, multi_gpu_test_BN)
+from model_adapt.evaluation import (select_logits_to_idx, tackle_img_from_idx,
+                            single_gpu_test_ensemble, multi_gpu_test_ensemble)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='DDA test model')
@@ -202,8 +201,6 @@ def test(args, cfg, test_fn: str):
         if 'ensemble' in test_fn:
             outputs = single_gpu_test_ensemble(model, data_loader, args.select, args.show, args.show_dir, 
                                   **show_kwargs)
-        elif 'BN' in test_fn:
-            outputs = single_gpu_test_BN(model, data_loader)    
         else:
             outputs = single_gpu_test(model, data_loader)    
     else:
@@ -214,8 +211,6 @@ def test(args, cfg, test_fn: str):
         if 'ensemble' in test_fn:
             outputs = multi_gpu_test_ensemble(model, data_loader, args.select, args.tmpdir,
                                  args.gpu_collect, )
-        elif 'BN' in test_fn:
-            outputs = multi_gpu_test_BN(model, data_loader, args.tmpdir, args.gpu_collect, )
         else:
             outputs = multi_gpu_test(model, data_loader, args.tmpdir, args.gpu_collect, )
         
