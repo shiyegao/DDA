@@ -96,7 +96,7 @@ def parse_args():
         default='none',
         help='job launcher')
     parser.add_argument('--local_rank', type=int, default=0)
-    parser.add_argument('--select', type=str, default="entropy")
+    parser.add_argument('--ensemble', type=str, default="sum")
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
@@ -186,7 +186,7 @@ def test(args, cfg, test_fn: str):
         CLASSES = ImageNet.CLASSES
 
     if 'ensemble' in test_fn:
-        print(f"Select: {args.select}")
+        print(f"Ensemble: {args.ensemble}")
     if not distributed:
         if args.device == 'cpu':
             model = model.cpu()
@@ -199,7 +199,7 @@ def test(args, cfg, test_fn: str):
         model.CLASSES = CLASSES
         show_kwargs = {} if args.show_options is None else args.show_options
         if 'ensemble' in test_fn:
-            outputs = single_gpu_test_ensemble(model, data_loader, args.select, args.show, args.show_dir, 
+            outputs = single_gpu_test_ensemble(model, data_loader, args.ensemble, args.show, args.show_dir, 
                                   **show_kwargs)
         else:
             outputs = single_gpu_test(model, data_loader)    
@@ -209,7 +209,7 @@ def test(args, cfg, test_fn: str):
             device_ids=[torch.cuda.current_device()],
             broadcast_buffers=False)
         if 'ensemble' in test_fn:
-            outputs = multi_gpu_test_ensemble(model, data_loader, args.select, args.tmpdir,
+            outputs = multi_gpu_test_ensemble(model, data_loader, args.ensemble, args.tmpdir,
                                  args.gpu_collect, )
         else:
             outputs = multi_gpu_test(model, data_loader, args.tmpdir, args.gpu_collect, )
