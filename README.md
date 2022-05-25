@@ -36,7 +36,7 @@ mim install mmcls
 ```
 
 ## Pre-trained Models
-You can find how to download checkpoint [here](.ckpt/README.md). 
+You can find how to download checkpoint [here](./ckpt/README.md). 
 
 ## Usage
 
@@ -45,7 +45,7 @@ You can find how to download checkpoint [here](.ckpt/README.md).
 
 ### Ensemble Test
 
-You can choose corruption type/severity in [configs](.model_adapt/configs/_base_/datasets). Ensemble methods can be changed in [args](.model_adapt/test_ensemble.py#L99).
+You can choose corruption type/severity in [configs](./model_adapt/configs/_base_/datasets). Ensemble methods can be changed in [args](./model_adapt/test_ensemble.py#L99).
 
 
 The basic command form is 
