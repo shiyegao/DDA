@@ -45,7 +45,7 @@ You can find how to download checkpoint [here](./ckpt/README.md).
 
 ### Ensemble Test
 
-You can choose corruption type/severity in [configs](./model_adapt/configs/_base_/datasets). Ensemble methods can be changed in [args](./model_adapt/test_ensemble.py#L99).
+You can choose corruption type/severity in [configs](./model_adapt/configs/_base_/datasets). Ensemble methods can be set according to [args](./model_adapt/test_ensemble.py#L99).
 
 
 The basic command form is 
@@ -70,4 +70,4 @@ bash test.sh
 | Swin-B         | 1K/224^2  | 15.1/87.8 | 83.4          | 41.0 | 37.0 | **42.0** |
 | ConvNeXt-B     | 1K/224^2  | 15.4/88.6 | 83.9          | 45.6 | 45.8 | **46.1** |
 
-Colomns with * are ImageNet-C Acc.
+Columns with * are ImageNet-C Acc.

@@ -28,10 +28,6 @@ def select_logits_to_idx(x1: list, x2: list, mode: str):
         con1 = logits1.softmax(1).max(1, keepdim=True)[0]
         con2 = logits2.softmax(1).max(1, keepdim=True)[0]
         idx = con1<=con2
-    elif mode == 'l2norm':
-        n1 = logits1.norm(p=2, dim=1, keepdim=True)
-        n2 = logits2.norm(p=2, dim=1, keepdim=True)
-        idx = n1<=n2
     elif mode == 'var':
         v1 = logits1.var(dim=1, keepdim=True)
         v2 = logits2.var(dim=1, keepdim=True)
@@ -58,7 +54,7 @@ def tackle_img_from_idx(img1: dict, img2: dict, idx: torch.tensor) -> dict:
 
 
 @torch.no_grad()
-def confuse_img_from_logits(x1: list, x2: list, img1: dict, img2: dict, mode: str) -> dict:
+def fuse_img_from_logits(x1: list, x2: list, img1: dict, img2: dict, mode: str) -> dict:
     logits1 = torch.from_numpy(np.vstack(x1))
     logits2 = torch.from_numpy(np.vstack(x2))
     if mode == 'entropy_fuse':
@@ -69,10 +65,6 @@ def confuse_img_from_logits(x1: list, x2: list, img1: dict, img2: dict, mode: st
         con1 = logits1.softmax(1).max(1, keepdim=True)[0]
         con2 = logits2.softmax(1).max(1, keepdim=True)[0]
         w = torch.cat((con1, con2), 1).softmax(1)
-    elif mode == 'l2norm_fuse':
-        n1 = logits1.norm(p=2, dim=1, keepdim=True)
-        n2 = logits2.norm(p=2, dim=1, keepdim=True)
-        w = torch.cat((n1, n2), 1).softmax(1)
     elif mode == 'var_fuse':
         v1 = logits1.var(dim=1, keepdim=True)
         v2 = logits2.var(dim=1, keepdim=True)
@@ -127,7 +119,7 @@ def single_gpu_test_ensemble(
                 result = ensemble_from_logits(result1, result2, mode)
                 data = data1
             elif 'fuse' in mode:
-                data = confuse_img_from_logits(result1, result2, data1, data2, mode)
+                data = fuse_img_from_logits(result1, result2, data1, data2, mode)
                 result = model(return_loss=False, **data)
             else:
                 result, idx = select_logits_to_idx(result1, result2, mode)
@@ -217,7 +209,7 @@ def multi_gpu_test_ensemble(model, data_loader, mode, tmpdir=None, gpu_collect=F
                 result = ensemble_from_logits(result1, result2, mode)
                 data = data1
             elif 'fuse' in mode:
-                data = confuse_img_from_logits(result1, result2, data1, data2, mode)
+                data = fuse_img_from_logits(result1, result2, data1, data2, mode)
                 result = model(return_loss=False, **data)
             else:
                 result, idx = select_logits_to_idx(result1, result2, mode)

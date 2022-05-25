@@ -96,7 +96,13 @@ def parse_args():
         default='none',
         help='job launcher')
     parser.add_argument('--local_rank', type=int, default=0)
-    parser.add_argument('--ensemble', type=str, default="sum")
+    parser.add_argument(
+        '--ensemble', 
+        type=str, 
+        default='sum',
+        choices=['first', 'second', 'entropy', 'confidence', 'var', 
+        'entropy_fuse', 'confidence_fuse', 'var_fuse',
+        'sum', 'entropy_sum', 'confidence_sum'])
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
