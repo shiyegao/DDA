@@ -8,14 +8,11 @@ This repo is based on [guided-diffusion](https://github.com/openai/guided-diffus
 
 ## File_structure
 
+The basic file structure is shown as follows:
 ```
 DDA
     |---- dataset
         |---- imagenetc
-            |---- gaussian_noise
-                |---- 5
-                    |---- n01440764
-                        |---- ILSVRC2012_val_00000293.JPEG
         |---- generated
     |---- ckpt
         |---- *.pth
@@ -27,6 +24,8 @@ DDA
     |---- README.md
 ```
 
+Structure of dataset can be found [here](./dataset/README.md).
+
 ### Installation
 ```bash
 conda create -n DDA python=3.8
@@ -35,6 +34,8 @@ pip install openmim cupy_cuda113
 mim install mmcv-full 
 mim install mmcls
 ```
+
+You can find how to download checkpoint [here](.ckpt/README.md). 
 
 ### Usage
 
