@@ -33,11 +33,14 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 pip install openmim cupy_cuda113
 mim install mmcv-full 
 mim install mmcls
+pip install blobfile tqdm pandas
+conda install mpi4py
 ```
 
 ## Pre-trained Models
 You can find how to download checkpoint [here](./ckpt/README.md). 
-the pre-trained diffusion model we used is from [guided-diffusion](https://github.com/openai/guided-diffusion)
+
+the pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
 
 ## Usage
 
