@@ -5,23 +5,30 @@ After you download [ImageNet-C](https://github.com/hendrycks/robustness) dataset
 The detailed file structure is shown as follows:
 ```
 DDA
-    |---- dataset
-        |---- imagenetc
-            |---- gaussian_noise
-                |---- 1
-                |---- 2
-                |---- 3
-                |---- 4
-                |---- 5
-                    |---- n01440764
-                        |---- ILSVRC2012_val_00000293.JPEG
-        |---- generated
-            |---- gaussian_noise
-                |---- 1
-                |---- 2
-                |---- 3
-                |---- 4
-                |---- 5
-                    |---- n01440764
-                        |---- ILSVRC2012_val_00000293.JPEG
+├── dataset
+│   ├── imagenetc
+│   │   ├── gaussian_noise
+│   │   │   ├── 1
+│   │   │   ├── 2
+│   │   │   ├── 3
+│   │   │   ├── 4
+│   │   │   └── 5
+│   │   │       ├── n01440764
+│   │   │       │   ├── ILSVRC2012_val_00000293.JPEG
+│   │   │       │   └── ...
+│   │   │       └── ...
+│   │   └── ...
+│   └── generated
+│       ├── gaussian_noise
+│       │   ├── 1
+│       │   ├── 2
+│       │   ├── 3
+│       │   ├── 4
+│       │   └── 5
+│       │       ├── n01440764
+│       │       │   ├── ILSVRC2012_val_00000293.JPEG
+│       │       │   └── ...
+│       │       └── ...
+│       └── ...
+└── ...
 ```
