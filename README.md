@@ -6,7 +6,7 @@ This repo is based on [ilvr](https://github.com/jychoi118/ilvr_adm) and [mim](ht
 + Adapt an image using a diffusion model.
 + Test using self-ensemble given image pairs.
 
-## File_structure
+## File Structure
 
 The basic file structure is shown as follows:
 ```
