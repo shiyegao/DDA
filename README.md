@@ -49,9 +49,9 @@ We provide a bash script for easy downloading by just run ```bash download_ckpt.
 If you want to download a certain model, you can find the corresponding ```wget``` command and only run the line.
 We also provide the source of such checkpoints, more details of which are hidden in the links as follows.
 
-The pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
+The pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion).
 
-More details of pre-trained recognition models can be found [here](./ckpt/README.md). 
+The pre-trained recognition model: [mm_models](./ckpt/README.md). 
 
 
 ## Usage
