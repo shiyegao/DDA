@@ -47,7 +47,7 @@ mim install mmcls
 
 We provide a bash script for easy downloading by just run ```bash download_ckpt.sh```.
 If you want to download a certain model, you can find the corresponding ```wget``` command and only run the line.
-We provide the source of such checkpoints, you can follow the link as follows for more details.
+We also provide the source of such checkpoints, more details of which are hidden in the links as follows.
 
 The pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
 
