@@ -1,4 +1,9 @@
 ## Checkpoint
+
+### Diffusion Model
+The pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
+
+### Recognition Model
 You can find configs and checkpoints of recognition models in [mmclassification](https://github.com/open-mmlab/mmclassification/tree/master/configs).
 
 Specifically, the six models in our paper are shown as follows:

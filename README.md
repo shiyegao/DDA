@@ -11,17 +11,23 @@ This repo is based on [ilvr](https://github.com/jychoi118/ilvr_adm) and [mim](ht
 The basic file structure is shown as follows:
 ```
 DDA
-    |---- dataset
-        |---- imagenetc
-        |---- generated
-    |---- ckpt
-        |---- *.pth
-    |---- image_adapt
-        |---- guided_diffusion
-        |---- scripts
-    |---- model_adapt
-        |---- configs
-    |---- README.md
+├── ckpt
+│   └── *.pth
+├── dataset
+│   ├── generated
+│   ├── imagenetc
+│   └── README.md
+├── image_adapt
+│   ├── guided_diffusion
+│   ├── scripts
+│   └── *.py
+├── model_adapt
+│   ├── configs
+│   └── *.py
+├── README.md
+├── download_ckpt.sh
+├── image_adapt.sh
+└── test.sh
 ```
 
 Structure of dataset can be found [here](./dataset/README.md).
@@ -29,18 +35,24 @@ Structure of dataset can be found [here](./dataset/README.md).
 ## Installation
 ```bash
 conda create -n DDA python=3.8
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
-pip install openmim cupy_cuda113
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch  # Should be cudatoolkit=[CUDA_VERSION]
+pip install cupy_cuda113  # Should be cupy_cuda[CUDA_VERSION]
+pip install openmim blobfile tqdm pandas
+conda install mpi4py
 mim install mmcv-full 
 mim install mmcls
-pip install blobfile tqdm pandas
-conda install mpi4py
 ```
 
 ## Pre-trained Models
-You can find how to download checkpoint [here](./ckpt/README.md). 
 
-the pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
+We provide a bash script for easy downloading by just run ```bash download_ckpt.sh```.
+If you want to download a certain model, you can find the corresponding ```wget``` command and only run the line.
+We provide the source of such checkpoints, you can follow the link as follows for more details.
+
+The pre-trained diffusion model: [256x256_diffusion_uncond.pt](https://openaipublic.blob.core.windows.net/diffusion/jul-2021/256x256_diffusion_uncond.pt) from [guided-diffusion](https://github.com/openai/guided-diffusion)
+
+More details of pre-trained recognition models can be found [here](./ckpt/README.md). 
+
 
 ## Usage
 
