@@ -1,5 +1,5 @@
 # Back to Source: Diffusion-Driven Test-Time Adaptation
-> [**Back to Source: Diffusion-Driven Test-Time Adaptation**](http://arxiv.org/abs/2207.03442)            
+> [**Back to Source: Diffusion-Driven Test-Time Adaptation**](http://arxiv.org/pdf/2207.03442)            
 > Jin Gao*, Jialing Zhang*, Xihui Liu, Trevor Darrell, Evan Shelhamer*, Dequan Wang*       
 > *arXiv technical report ([arXiv 2207.03442](http://arxiv.org/abs/2207.03442))*  
 
@@ -98,12 +98,12 @@ Columns with * are ImageNet-C Acc.
 
 ## Citation
 
-If you find this project useful for your research, please use the following BibTeX entry.
-```
-  @article{gao2022back,
-    title={Back to the Source: Diffusion-Driven Test-Time Adaptation},
-    author={Gao, Jin and Zhang, Jialing and Liu, Xihui and Darrell, Trevor and Shelhamer, Evan and Wang, Dequan},
-    journal={arXiv preprint arXiv:2207.03442},
-    year={2022}
-  }
+If our code or models help your work, please cite our [paper](https://arxiv.org/abs/2207.03442):
+```BibTeX
+@article{gao2022back,
+  title={Back to the Source: Diffusion-Driven Test-Time Adaptation},
+  author={Gao, Jin and Zhang, Jialing and Liu, Xihui and Darrell, Trevor and Shelhamer, Evan and Wang, Dequan},
+  journal={arXiv preprint arXiv:2207.03442},
+  year={2022}
+}
 ```
