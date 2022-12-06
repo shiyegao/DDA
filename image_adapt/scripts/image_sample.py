@@ -17,6 +17,7 @@ from image_adapt.guided_diffusion.image_datasets import load_data
 from torchvision import utils
 from image_adapt.resizer import Resizer
 import math
+from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 
 
 # added
@@ -54,6 +55,15 @@ def main():
     model.to(dist_util.dev())
     if args.use_fp16:
         model.convert_to_fp16()
+
+    model = DDP(
+        model,
+        device_ids=[dist_util.dev()],
+        output_device=dist_util.dev(),
+        broadcast_buffers=False,
+        bucket_cap_mb=128,
+        find_unused_parameters=False,
+    )
     model.eval()
 
     logger.log("creating resizers...")
@@ -75,9 +85,12 @@ def main():
         severity=args.severity,
     )
 
+    assert args.num_samples >= args.batch_size * dist_util.get_world_size(), "The number of the generated samples will be larger than the specified number."
+    
+
     logger.log("creating samples...")
     count = 0
-    while count * args.batch_size < args.num_samples:
+    while count * args.batch_size * dist_util.get_world_size() < args.num_samples:
         model_kwargs, filename = next(data)
         model_kwargs = {k: v.to(dist_util.dev()) for k, v in model_kwargs.items()}
         sample = diffusion.p_sample_loop(
@@ -105,7 +118,7 @@ def main():
             )
 
         count += 1
-        logger.log(f"created {count * args.batch_size} samples")
+        logger.log(f"created {count * args.batch_size * dist_util.get_world_size()} samples")
 
     dist.barrier()
     logger.log("sampling complete")
