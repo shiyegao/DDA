@@ -15,7 +15,6 @@ from image_adapt.guided_diffusion.script_util import (
 )
 from image_adapt.guided_diffusion.image_datasets import load_data
 from torchvision import utils
-from image_adapt.resizer import Resizer
 import math
 from torch.nn.parallel.distributed import DistributedDataParallel as DDP
 
@@ -69,12 +68,6 @@ def main():
     logger.log("creating resizers...")
     assert math.log(args.D, 2).is_integer()
 
-    shape = (args.batch_size, 3, args.image_size, args.image_size)
-    shape_d = (args.batch_size, 3, int(args.image_size / args.D), int(args.image_size / args.D))
-    down = Resizer(shape, 1 / args.D).to(next(model.parameters()).device)
-    up = Resizer(shape_d, args.D).to(next(model.parameters()).device)
-    resizers = (down, up)
-
     logger.log("loading data...")
     data = load_reference(
         args.base_samples,
@@ -99,9 +92,9 @@ def main():
             clip_denoised=args.clip_denoised,
             model_kwargs=model_kwargs,
             noise=model_kwargs["ref_img"],
-            resizers=resizers,
-            M=args.M,
             N=args.N,
+            D=args.D,
+            scale=args.scale
         )
 
         for i in range(args.batch_size):
@@ -130,8 +123,8 @@ def create_argparser():
         num_samples=10000,
         batch_size=4,
         D=32, # scaling factor
-        M=0, # refinement range
         N=50,
+        scale=1,
         use_ddim=False,
         base_samples="",
         model_path="",

@@ -5,6 +5,6 @@ MODEL_FLAGS="--attention_resolutions 32,16,8 --class_cond False --diffusion_step
 CUDA_VISIBLE_DEVICES=0,1,2,3 mpiexec -n 4 python image_adapt/scripts/image_sample.py $MODEL_FLAGS \
                             --batch_size 4 --num_samples 50000 --timestep_respacing 100 \
                             --model_path ckpt/256x256_diffusion_uncond.pt --base_samples dataset/imagenetc \
-                            --D 8 --M 20 --N 50 \
+                            --D 4 --N 50 --scale 6\
                             --corruption gaussian_noise --severity 5 \
                             --save_dir dataset/generated/

@@ -1,13 +1,13 @@
-# Back to Source: Diffusion-Driven Test-Time Adaptation
-> [**Back to Source: Diffusion-Driven Test-Time Adaptation**](http://arxiv.org/pdf/2207.03442)            
+# Back to the Source: Diffusion-Driven Adaptation to Test-Time Corruption
+> [**Back to the Source: Diffusion-Driven Adaptation to Test-Time Corruption**](http://arxiv.org/pdf/2207.03442)            
 > Jin Gao*, Jialing Zhang*, Xihui Liu, Trevor Darrell, Evan Shelhamer*, Dequan Wang*       
 > *arXiv technical report ([arXiv 2207.03442](http://arxiv.org/abs/2207.03442))*  
 
 ## Abstract
-Test-time adaptation harnesses test inputs to improve the accuracy of a model trained on source data when tested on shifted target data. Existing methods update the source model by (re-)training on each target domain. While effective, re-training is sensitive to the amount and order of the data and the hyperparameters for optimization. We instead update the target data, by projecting all test inputs toward the source domain with a generative diffusion model. Our diffusion-driven adaptation method, DDA, shares its models for classification and generation across all domains. Both models are trained on the source domain, then fixed during testing. We augment diffusion with image guidance and self-ensembling to automatically decide how much to adapt. Input adaptation by DDA is more robust than prior model adaptation approaches across a variety of corruptions, architectures, and data regimes on the ImageNet-C benchmark. With its input-wise updates, DDA succeeds where model adaptation degrades on too little data in small batches, dependent data in non-uniform order, or mixed data with multiple corruptions.
+Test-time adaptation harnesses test inputs to improve the accuracy of a model trained on source data when tested on shifted target data. Most methods update the source model by (re-)training on each target domain. While re-training can help, it is sensitive to the amount and order of the data and the hyperparameters for optimization. We update the target data instead, and project all test inputs toward the source domain with a generative diffusion model. Our diffusion-driven adaptation (DDA) method shares its models for classification and generation across all domains, training both on source then freezing them for all targets, to avoid expensive domain-wise re-training. We augment diffusion with image guidance and classifier self-ensembling to automatically decide how much to adapt. Input adaptation by DDA is more robust than model adaptation across a variety of corruptions, models, and data regimes on the ImageNet-C benchmark. With its input-wise updates, DDA succeeds where model adaptation degrades on too little data (small batches), on dependent data (correlated orders), or on mixed data (multiple corruptions).
 
 ## Introduction
-This repo is based on [ilvr](https://github.com/jychoi118/ilvr_adm) and [mim](https://github.com/open-mmlab/mim). We mainly provide the following functionality:
+This repo is based on [guided-diffusion](https://github.com/openai/guided-diffusion) and [mim](https://github.com/open-mmlab/mim). We mainly provide the following functionality:
 + Adapt an image using a diffusion model.
 + Test using self-ensemble given image pairs.
 
@@ -87,12 +87,11 @@ bash test.sh
 
 | Architecture    | Data/Size   | Params/FLOPs| ImageNet Acc. |Source-Only* | MEMO* | DDA*|
 |:---------------:|:-----------:|:-----------:|:-----------:|:-----------:|:-----:|:---:|
-| RedNet-26      | 1K/224  | 1.7/9.2   | 76.0          | 15.0 | 20.6 | **25.0** |
-| ResNet-50      | 1K/224  | 4.1/25.6  | 76.6          | 18.7 | 24.7 | **27.3** |
-| Swin-T         | 1K/224  | 4.5/28.3  | 81.2          | 33.1 | 29.5 | **37.0** |
-| ConvNeXt-T     | 1K/224  | 4.5/28.6  | 81.7          | 39.3 | 37.8 | **41.4** |
-| Swin-B         | 1K/224  | 15.1/87.8 | 83.4          | 41.0 | 37.0 | **42.0** |
-| ConvNeXt-B     | 1K/224  | 15.4/88.6 | 83.9          | 45.6 | 45.8 | **46.1** |
+| ResNet-50      | 1K/224  | 4.1/25.6  | 76.6          | 18.7 | 24.7 | **29.7** |
+| Swin-T         | 1K/224  | 4.5/28.3  | 81.2          | 33.1 | 29.5 | **40.0** |
+| ConvNeXt-T     | 1K/224  | 4.5/28.6  | 81.7          | 39.3 | 37.8 | **44.2** |
+| Swin-B         | 1K/224  | 15.1/87.8 | 83.4          | 41.0 | 37.0 | **44.5** |
+| ConvNeXt-B     | 1K/224  | 15.4/88.6 | 83.9          | 45.6 | 45.8 | **49.4** |
 
 Columns with * are ImageNet-C Acc.
 
