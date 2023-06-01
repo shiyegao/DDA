@@ -1,0 +1,7 @@
+@inproceedings{gao2023back,
+  title={Back to the Source: Diffusion-Driven Adaptation to Test-Time Corruption},
+  author={Gao, Jin and Zhang, Jialing and Liu, Xihui and Darrell, Trevor and Shelhamer, Evan and Wang, Dequan},
+  booktitle={CVPR},
+  year={2023}
+}
+

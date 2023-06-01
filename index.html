@@ -1,0 +1,455 @@
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>DDA</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="jquery.mlens-1.0.min.js"></script>
+    <script type="text/javascript" src="jquery.js"></script>
+    <!-- <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script> -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+        body {
+            font-family: 'Open-Sans', sans-serif;
+            font-weight: 300;
+            background-color: #fff;
+        }
+
+        .content {
+            width: 1000px;
+            padding: 25px 50px;
+            margin: 25px auto;
+            background-color: white;
+            box-shadow: 0px 0px 10px #999;
+            border-radius: 15px;
+        }
+
+        .contentblock {
+            width: 950px;
+            margin: 0 auto;
+            padding: 0;
+            border-spacing: 25px 0;
+        }
+
+        .contentblock td {
+            background-color: #fff;
+            padding: 25px 50px;
+            vertical-align: top;
+            box-shadow: 0px 0px 10px #999;
+            border-radius: 15px;
+        }
+
+        a,
+        a:visited {
+            color: #224b8d;
+            font-weight: 300;
+        }
+
+        #authors {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #conference {
+            text-align: center;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        #authors a {
+            margin: 0 0px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 35px;
+            font-weight: 300;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: 300;
+        }
+
+        code {
+            display: block;
+            padding: 10px;
+            margin: 10px 10px;
+        }
+
+        p {
+            line-height: 25px;
+            text-align: justify;
+        }
+
+        p code {
+            display: inline;
+            padding: 0;
+            margin: 0;
+        }
+
+        #teasers {
+            margin: 0 auto;
+        }
+
+        #teasers td {
+            margin: 0 auto;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #teasers img {
+            width: 250px;
+        }
+
+        #results img {
+            width: 133px;
+        }
+
+        #seeintodark {
+            margin: 0 auto;
+        }
+
+        #sift {
+            margin: 0 auto;
+        }
+
+        #sift img {
+            width: 250px;
+        }
+
+        .downloadpaper {
+            padding-left: 20px;
+            float: right;
+            text-align: center;
+        }
+
+        .downloadpaper a {
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #demoframe {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 340px;
+        }
+
+        #feedbackform {
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+
+        #eyeglass {
+            height: 530px;
+        }
+
+        #eyeglass #wrapper {
+            position: relative;
+            height: auto;
+            margin: 0 auto;
+            float: left;
+            width: 800px;
+        }
+
+        #mitnews {
+            font-weight: normal;
+            margin-top: 20px;
+            font-size: 14px;
+            width: 220px;
+        }
+
+        #mitnews a {
+            font-weight: normal;
+        }
+
+        .teaser-img {
+            width: 90%;
+						display: block;
+						margin-left: auto;
+						margin-right: auto;
+        }
+        .teaser-gif {
+						display: block;
+						margin-left: auto;
+						margin-right: auto;
+        }
+        .summary-img {
+            width: 100%;
+						display: block;
+						margin-left: auto;
+						margin-right: auto;
+        }
+
+        .iframe {
+            width: 100%;
+            height: 125%
+        }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+      .image {
+        flex-basis: 40%
+      }
+      .text {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+			.video {
+					margin-left: auto;
+					margin-right: auto;
+					display: block
+			}
+      .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .boxshadow {
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 2px 2px 5px #888888;
+      }
+			.spacertr{
+				height:8px;
+			}
+			.spacertd{
+				height:40px;
+			}
+
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+		<!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-98008272-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-98008272-2');
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+		-->
+
+</head>
+
+<body>
+
+    <div class="content">
+			<h1>Back to the Source: <br> Diffusion-Driven Adaptation to Test-Time Corruption</h1>
+        <p id="authors">
+				<a href="https://dqwang.group/authors/jin-gao/">Jin Gao</a><sup>*1</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://dqwang.group/authors/jialing-zhang/">Jialing Zhang</a><sup>*1</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://xh-liu.github.io/">Xihui Liu</a><sup>3</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a><sup>4</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://imaginarynumber.net/research/">Evan Shelhamer</a><sup>\(\dagger\)5</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://dequan.wang/">Dequan Wang</a><sup>\(\dagger\)1,2</sup><br>
+            <!-- <strong>MIT Computer Science and Artificial Intelligence Laboratory</strong> -->
+						<sup>1</sup>Shanghai Jiao Tong University&nbsp;&nbsp;<sup>2</sup>Shanghai Artificial Intelligence Laboratory&nbsp;&nbsp;<sup>3</sup>The University of Hong Kong&nbsp;&nbsp;<br><sup>4</sup>University of California, Berkeley&nbsp;&nbsp;<sup>5</sup>DeepMind
+						<br><sup>*</sup>indicates equal contribution, <sup>\(\dagger\)</sup> indicates corresponding author
+                        <br><i>CVPR 2023</i>
+        </p>
+				<font size="+2">
+					<p style="text-align: center;">
+						<a href="https://arxiv.org/abs/2207.03442" target="_blank">[Paper]</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="https://github.com/shiyegao/DDA" target="_blank">[Code]</a> 
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="https://cvpr23dda.dqwang.group/" target="_blank">[Demo]</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="bibtex.txt" target="_blank">[Bibtex]</a>
+					</p>
+				</font>
+				<!-- <font size="+1">
+					<p style="text-align: center;">
+						Skip to:  &nbsp;&nbsp;
+						<a href="#abstract">[Abstract]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#summary">[Summary]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#presentations">[Video & Poster]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+				</font> -->
+        <p id="abstract">
+            <img class='teaser-img' src='img/teaser.png'></img>
+        </p>
+
+				<p><strong>Abstract: </strong>
+                    Test-time adaptation harnesses test inputs to improve the accuracy of a model trained on source data when tested on shifted target data.
+                    Most methods update the source model by (re-)training on each target domain.
+                    While re-training can help, it is sensitive to the amount and order of the data and the hyperparameters for optimization.
+                    We update the target data instead, and project all test inputs toward the source domain with a generative diffusion model.
+                    Our diffusion-driven adaptation (DDA) method shares its models for classification and generation across all domains, training
+                    both on source then freezing them for all targets, to avoid expensive domain-wise re-training. 
+                    We augment diffusion with image guidance and classifier self-ensembling to automatically decide how much to adapt.
+                    Input adaptation by DDA is more robust than model adaptation across a variety of corruptions, models, and data regimes on the ImageNet-C benchmark.
+                    With its input-wise updates, DDA succeeds where model adaptation degrades on too little data (small batches), on dependent data (correlated orders), or on mixed data (multiple corruptions).
+				</p>
+
+        <br clear="all">
+    </div>
+    <div class="content" id="summary">
+
+        <h2 style="text-align:center;">Method</h2>
+				<br>
+        <img class='summary-img' src='img/method.png'></img>
+				<br>
+
+        <div class="container">
+					<div class="text">
+						<p> <b>One diffusion model can adapt inputs from new and multiple targets during testing.</b>
+              Our adaptation method, DDA, projects inputs from all target domains to the source domain by a generative diffusion model.
+              Having trained on the source data alone, our source diffusion model for generation and source classification model for recognition do not need any updating, and therefore scale to multiple target domains without potentially expensive and sensitive re-training optimization.</p>
+					</div>
+				</div>
+
+    </div>
+
+    <div class="content" id="summary">
+
+      <h2 style="text-align:center;">Performance</h2>
+      <div class="container">
+        <div class="image">
+          <img style="width:400px" src='img/table.png'></img>
+        </div>
+        <div class="text">
+          <p> <b>DDA is more robust in the episodic setting.</b>
+            Episodic inference is independent across inputs, and includes the source-only model without adaptation, model updates by MEMO, and input updates by DiffPure and DDA (ours).
+            We evaluate accuracy on standard ImageNet and the corruptions of ImageNet-C.
+          </p>
+        </div>
+      </div>
+      <hr>
+      
+      <br>
+      <img class='summary-img' src='img/bar_plot.png'></img>
+      <br>
+
+      <div class="container">
+        <div class="text">
+          <p>
+            <b>DDA reliably improves robustness across corruption types.</b> 
+            We compare DDA with the source-only model, state-of-the-art diffusion for adversarial defense (DiffPure), and a simple ablation of DDA (DDA w/o Self-Ensembling (SE)).
+            DDA is the best on average, strictly improves on DiffPure, and improves on simple diffusion in most cases.
+            Our self-ensembling prevents catastrophic drops (on fog or contrast, for example).</p>
+        </div>
+      </div>
+      <hr>
+      <br>
+      <img class='summary-img' src='img/line_plot.png'></img>
+      <br>
+      
+      <div class="container">
+        <div class="text">
+          <p>
+            <b>DDA is invariant to batch size and data order while Tent is extremely sensitive.</b> 
+            To analyze sensivity to the amount and order of the data we measure the average robustness of independent adaptation across corruption types.
+            DDA does not depend on these factors and consistently improves on MEMO.
+            Tent fails on class-ordered data without shuffling and degrades at small batch sizes.</p>
+        </div>
+      </div>
+  </div>
+
+
+  <div class="content" id="summary">
+
+    <h2 style="text-align:center;">Visual Results</h2>
+    
+    <br>
+    <img class='summary-img' src='img/positive.png'></img>
+    <br>
+    <br>
+    <img class='summary-img' src='img/negative.png'></img>
+    <br>
+
+    
+</div>
+  
+
+		<div class="content" id="presentations">
+			<h2 style="text-align:center;">Presentations</h2>
+        <table style="text-align: center;" class="center">
+          <tr>
+            <td>
+              <div class="boxshadow">
+								<a>
+								<font size="+2">
+                <p style="text-align: center;">Video</p>
+								</font>
+								<iframe width="450" height="250" 
+									src="https://www.youtube.com/embed/YHRJVGal5FM">
+								</iframe>
+              </a>
+              </div>
+            </td>
+						<td width="20"></td>
+            <td>
+              <div class="boxshadow">
+								<a>
+								<font size="+2">
+                <p style="text-align: center;">Poster</p>
+								</font>
+								<img style="width:450px; height:254" src="img/poster.png"></img>
+              </a>
+              </div>
+            </td>
+          </tr>
+		</table>
+		</div>
+
+
+    
+		<!--
+		<div class="content" id="video">
+			<h2 style="text-align:center;">Video</h2>
+			<a href="http://latent-composition.csail.mit.edu/other_projects/gan_ensembling/presentations/gan_ensembling_video.mp4">
+			<video class="video" width="960" controls>
+					<source src="http://latent-composition.csail.mit.edu/other_projects/gan_ensembling/presentations/gan_ensembling_video.mp4" type="video/mp4">
+			</video>
+			</a>
+		</div>
+		<div class="content" id ="poster">
+			<h2 style="text-align:center;">Poster</h2>
+			<a href="http://latent-composition.csail.mit.edu/other_projects/gan_ensembling/presentations/gan_ensembling_poster.pdf">
+			<img style="width:960px" src="http://latent-composition.csail.mit.edu/other_projects/gan_ensembling/presentations/gan_ensembling_poster.jpg"></img>
+			</a>
+		</div>
+		-->
+    <div class="content" id="references">
+
+        <h2>Reference</h2>
+
+				<!-- <p>J Gao, JL Zhang, XH Liu, T Darrell, E Shelhamer, DQ Wang. Back to the Source: Diffusion-Driven Adaptation to Test-Time Corruption. <br>CVPR, 2023.</p> -->
+
+        <code>
+			@inproceedings{chai2021ensembling,<br>
+				&nbsp;&nbsp;title={Back to the Source: Diffusion-Driven Adaptation to Test-Time Corruption},<br>
+				&nbsp;&nbsp;author={Gao, Jin and Zhang, Jialing and Liu, Xihui and Darrell, Trevor and Shelhamer, Evan and Wang, Dequan},<br>
+				&nbsp;&nbsp;booktitle={CVPR},<br>
+				&nbsp;&nbsp;year={2023}<br>
+			 }
+      
+				</code>
+    </div>      
+    <!-- <div class="content" id="acknowledgements">
+          <p><strong>Acknowledgements</strong>:
+					We would like to thank Jonas Wulff, David Bau, Minyoung Huh, Matt Fisher, Aaron Hertzmann, Connelly Barnes, and Evan Shelhamer for helpful discussions. LC is supported by the National Science Foundation Graduate Research Fellowship under Grant No. 1745302. This work was started while LC was an intern at Adobe Research. Recycling a familiar <a href="https://chail.github.io/latent-composition/">template</a>.
+    </div> -->
+</body>
+
+</html>
