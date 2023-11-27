@@ -11,6 +11,18 @@ This repo is based on [guided-diffusion](https://github.com/openai/guided-diffus
 + Adapt an image using a diffusion model.
 + Test using self-ensemble given image pairs.
 
+Here are some important concepts related to our project:
+
+- **Source**: The source refers to the natural, uncorrupted images, often considered the ground truth in our context.
+- **Target**: The target images are the ones that have been corrupted or altered in some way.
+- **Objective**: Our primary goal is to employ a diffusion model to adapt the target images back to the source domain. Importantly, we achieve this **without relying on any source images** during the adaptation process. The diffusion model itself is trained using the source images.
+
+Regarding the code structure:
+
+- ``image_adapt``: This section of our code directly aligns with our primary objective, where we work on adapting the target images to the source domain.
+
+- ``model_adapt``: On the other hand, the ``model_adapt`` portion is dedicated to evaluation purposes. It's essential to note that our ensemble mechanism combines only the target image with our adapted one. Importantly, it operates **independently of any source images**.
+
 ## File Structure
 
 The basic file structure is shown as follows:
